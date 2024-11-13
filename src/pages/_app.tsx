@@ -61,46 +61,39 @@ export default function App({ Component, pageProps: {session, ...pageProps} }: A
       },
     },
   });
-  function Root() {
-     const [showChild, setShowChild] = useState(false);
-     useEffect(()=>{
-      setShowChild(true)
-     },[])
-     useEffect(()=>{
-      if(showChild && statusPage == true){
-        if((router.pathname === "/")){
-          router.push("/jobs")
-        } else if (router.pathname !== "/") {
-        location.href = "/"
-        } 
-      }
-     },[showChild, statusPage])
+  // function Root() {
+  //    const [showChild, setShowChild] = useState(false);
+  //    useEffect(()=>{
+  //     setShowChild(true)
+  //    },[])
+  //    useEffect(()=>{
+  //     if(showChild && statusPage == true){
+  //       if((router.pathname === "/")){
+  //         router.push("/jobs")
+  //       } else if (router.pathname !== "/") {
+  //       location.href = "/"
+  //       } 
+  //     }
+  //    },[showChild, statusPage])
 
-     if(!showChild){
-      return null
-     }
-     if(statusPage === false){
-      return <OfflinePageContainer/>
-     }
-    if(router.pathname === "/_error"){
-      return <NotFoundContainer/>
-    }
-    if(showChild){
-      const listNoTemplate = ['/']
-      if(!listNoTemplate.includes(router.pathname)){
-        return (
-            <Template>
-              <Component {...pageProps} />
-            </Template>
-          )
-      }
-       if(router.pathname === "/"){
-          return <LoginContainer/>
-        } else{
-          return <Component {...pageProps} />
-        }
-    }
-  }
+  //    if(!showChild){
+  //     return null
+  //    }
+  //    if(statusPage === false){
+  //     return <OfflinePageContainer/>
+  //    }
+  //   if(router.pathname === "/_error"){
+  //     return <NotFoundContainer/>
+  //   }
+  //   if(showChild){
+  //     const listNoTemplate = ['/']
+  //      if(router.pathname === "/"){
+  //         return <LoginContainer/>
+  //       } else{
+  //         return <Component {...pageProps} />
+  //       }
+  //   }
+  // }
   return (
     <QueryClientProvider client={queryClient}>
       <Head>
@@ -108,11 +101,14 @@ export default function App({ Component, pageProps: {session, ...pageProps} }: A
       </Head>
       <div className="light m-0 p-0 box-border">
         {isLoading && (
-          <div className="fixed  z-[1000] w-screen h-screen flex justify-center items-center bg-[#2069dd] opacity-100 duration-1000 overflow-hidden">
+          <div className="fixed  z-[100] w-screen h-screen flex justify-center items-center bg-[#2069dd] opacity-100 duration-1000 overflow-hidden">
             <PulseLoader color="white" className="m-auto" size={40} />
           </div>
         )}
-        {Root()}
+        {/* {Root()} */}
+          <Template>
+              <Component {...pageProps} />
+            </Template>
         <ToastContainer />
       </div>
     </QueryClientProvider>
